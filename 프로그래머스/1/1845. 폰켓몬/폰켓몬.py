@@ -1,7 +1,8 @@
 def solution(nums):
-    num_set = set(nums)
-    n = len(nums)
-    k = n // 2
-    return min(k, len(num_set))
+    choices = len(nums) // 2
+    set_choices = len(set(nums))
 
-
+    if choices <= set_choices:
+        return choices
+    elif choices > set_choices:
+        return set_choices

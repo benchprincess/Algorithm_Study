@@ -1,22 +1,15 @@
-import math
-
 def solution(progresses, speeds):
-    answer = []
-    n = len(progresses)
+    days = []
+    for p, s in zip(progresses, speeds):
+        day = (100 - p + s - 1) // s
+        days.append(day)
     
-    days_left = [math.ceil((100 - progresses[i]) / speeds[i]) for i in range(n)]
-    
-    count = 0
-    max_day = days_left[0]
-    
-    for i in range(n):
-        if days_left[i] <= max_day:
+    result = []
+    while days:
+        current = days.pop(0)  # ← 여기서 O(n) 발생!
+        count = 1
+        while days and days[0] <= current:
+            days.pop(0)
             count += 1
-        else:
-            answer.append(count)
-            count = 1
-            max_day = days_left[i]
-            
-    answer.append(count)
-    return answer
-                    
+        result.append(count)
+    return result
